@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.course.hibernate.entities.Category;
 import com.course.hibernate.entities.Order;
 import com.course.hibernate.entities.OrderItem;
+import com.course.hibernate.entities.Payment;
 import com.course.hibernate.entities.Product;
 import com.course.hibernate.entities.User;
 import com.course.hibernate.entities.enums.OrderStatus;
@@ -81,6 +82,11 @@ public class TestConfig implements CommandLineRunner {
         OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+
+        Payment payment1 = new Payment(null, Instant.parse("2019-07-22T17:21:22Z"), order3);
+        order3.setPayment(payment1);
+
+        orderRepository.save(order3);
 
     }
 }
