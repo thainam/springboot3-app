@@ -3,9 +3,11 @@ package com.course.hibernate.config;
 import java.time.Instant;
 import java.util.Arrays;
 
+import com.course.hibernate.entities.Category;
 import com.course.hibernate.entities.Order;
 import com.course.hibernate.entities.User;
 import com.course.hibernate.entities.enums.OrderStatus;
+import com.course.hibernate.repositories.CategoryRepository;
 import com.course.hibernate.repositories.OrderRepository;
 import com.course.hibernate.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
         User user1 = new User(null, "John Doe", "johndoe@example.com", "+098629102727192", "123456");
@@ -36,5 +41,12 @@ public class TestConfig implements CommandLineRunner {
         Order order3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.PAID, user3);
 
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+
+        Category category1 = new Category(null, "Eletronics");
+        Category category2 = new Category(null, "Books");
+        Category category3 = new Category(null, "Computer");
+
+        categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
+
     }
 }
