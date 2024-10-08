@@ -5,10 +5,12 @@ import java.util.Arrays;
 
 import com.course.hibernate.entities.Category;
 import com.course.hibernate.entities.Order;
+import com.course.hibernate.entities.OrderItem;
 import com.course.hibernate.entities.Product;
 import com.course.hibernate.entities.User;
 import com.course.hibernate.entities.enums.OrderStatus;
 import com.course.hibernate.repositories.CategoryRepository;
+import com.course.hibernate.repositories.OrderItemRepository;
 import com.course.hibernate.repositories.OrderRepository;
 import com.course.hibernate.repositories.ProductRepository;
 import com.course.hibernate.repositories.UserRepository;
@@ -32,6 +34,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -69,5 +74,13 @@ public class TestConfig implements CommandLineRunner {
         product5.getCategories().add(category2);
 
         productRepository.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
+
+        OrderItem orderItem1 = new OrderItem(order1, product1, 2, product1.getPrice());
+        OrderItem orderItem2 = new OrderItem(order1, product3, 1, product3.getPrice());
+        OrderItem orderItem3 = new OrderItem(order2, product3, 2, product3.getPrice());
+        OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+
     }
 }
